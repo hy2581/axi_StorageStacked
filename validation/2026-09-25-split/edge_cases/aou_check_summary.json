@@ -1,0 +1,20 @@
+{
+  "passed": true,
+  "master_data_bits": 256,
+  "wide_handshakes": 581,
+  "wide_vcd_data_beats": 548,
+  "width": 256,
+  "planes": 2,
+  "memory_completed": 20,
+  "memory_errors": 0,
+  "target_reads": 7,
+  "target_writes": 13,
+  "target_read_beats": 268,
+  "target_write_beats": 280,
+  "tx_flits": 584,
+  "rx_flits": 552,
+  "forward_replays": 0,
+  "reverse_replays": 0,
+  "crc_errors": 0,
+  "order_violations": 0
+}

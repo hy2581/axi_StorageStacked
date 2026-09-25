@@ -1,0 +1,19 @@
+{
+  "passed": true,
+  "bursts": 20,
+  "children": 277,
+  "errors": 0,
+  "image_bytes": 4320,
+  "window_bytes": 805306368,
+  "period_fs": 250000,
+  "commands": {
+    "ACT": 7,
+    "WR": 142,
+    "REFpb": 204,
+    "RD": 135,
+    "PREpb": 7
+  },
+  "dfi_data_events": 542,
+  "submit_stalls": 2922,
+  "response_stalls": 0
+}

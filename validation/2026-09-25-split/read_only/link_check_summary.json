@@ -1,0 +1,17 @@
+{
+  "passed": true,
+  "records": 118,
+  "events": {
+    "TX_FDI": 30,
+    "TX_FRAME": 30,
+    "RX_FRAME": 29,
+    "RX_FDI": 29
+  },
+  "rx_status": {
+    "in_order": 29
+  },
+  "fdi_delivered": 29,
+  "fdi_in_flight_at_exit": 1,
+  "axi_handshakes": 9,
+  "business_messages": 9
+}

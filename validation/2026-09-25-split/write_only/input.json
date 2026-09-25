@@ -1,0 +1,67 @@
+{
+  "config": {
+    "base": 2415919104,
+    "size": 805306368,
+    "planes": 2,
+    "replay": false,
+    "standard": "hbm4",
+    "slots": 8,
+    "channels": 2,
+    "scale": 1,
+    "queue": 4,
+    "response_hold": 0,
+    "period_fs": 2000000,
+    "max_ticks": 200000000000,
+    "response_stall_cycles": 3
+  },
+  "transactions": [
+    {
+      "command": "write",
+      "id": 1,
+      "address": 2415919104,
+      "size": 5,
+      "data": [
+        "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f",
+        "0102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f20",
+        "02030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f2021",
+        "030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122"
+      ],
+      "beats": 4,
+      "expected_response": 0,
+      "strobe": [
+        4294967295,
+        4294967295,
+        4294967295,
+        4294967295
+      ]
+    },
+    {
+      "command": "write",
+      "id": 1,
+      "address": 2415919132,
+      "size": 2,
+      "data": [
+        "aabbccdd"
+      ],
+      "strobe": [
+        5
+      ],
+      "beats": 1,
+      "expected_response": 0
+    },
+    {
+      "command": "write",
+      "id": 1023,
+      "address": 2415923196,
+      "size": 2,
+      "data": [
+        "29000000"
+      ],
+      "beats": 1,
+      "expected_response": 0,
+      "strobe": [
+        15
+      ]
+    }
+  ]
+}

@@ -1,0 +1,1 @@
+{"axi_data_bits":256,"ticks_per_second":1000000000000000,"period_ticks":2000000,"channels":{"AW":{"handshakes":96,"stall_cycles":0},"W":{"handshakes":192,"stall_cycles":192},"B":{"handshakes":96,"stall_cycles":384},"AR":{"handshakes":96,"stall_cycles":0},"R":{"handshakes":192,"stall_cycles":768}}}

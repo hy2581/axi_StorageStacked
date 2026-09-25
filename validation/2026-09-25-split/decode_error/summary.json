@@ -1,0 +1,61 @@
+{
+  "passed": true,
+  "version": "1.0.0",
+  "transactions": 8,
+  "end_tick_fs": 916000000,
+  "checks": [
+    "returned bytes",
+    "response IDs/status",
+    "AXI five channels",
+    "VCD/CSV agreement",
+    "AXI/Flit bytes",
+    "online memory/DRAM/DFI"
+  ],
+  "wave": {
+    "passed": true,
+    "source": "/home/hy258/hy/zhongxing/axi_StorageStacked/results/split-acceptance-v2/decode_error",
+    "sampled_rising_edges": 462,
+    "handshakes": {
+      "AW": 4,
+      "W": 7,
+      "B": 4,
+      "AR": 4,
+      "R": 7
+    },
+    "stalled_edges": {
+      "W": 8,
+      "B": 16,
+      "R": 28
+    },
+    "first_valid_ns": {
+      "awvalid": 24.0,
+      "wvalid": 24.0,
+      "bvalid": 98.0,
+      "arvalid": 110.0,
+      "rvalid": 430.0
+    },
+    "ready_transitions": {
+      "arready": 2,
+      "awready": 2,
+      "bready": 9,
+      "rready": 15,
+      "wready": 9
+    },
+    "first_handshake_ns": {
+      "AW": 26.0,
+      "W": 30.0,
+      "B": 108.0,
+      "AR": 112.0,
+      "R": 440.0
+    },
+    "checked": [
+      "VCD/CSV equality",
+      "VALID/payload hold",
+      "clocked output transitions",
+      "BVALID after AW/all W",
+      "RVALID after AR",
+      "WLAST/RLAST",
+      "drained"
+    ]
+  }
+}

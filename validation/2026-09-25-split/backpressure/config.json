@@ -1,0 +1,18 @@
+{
+  "axi": {
+    "base": 2415919104,
+    "size": 805306368,
+    "planes": 2,
+    "replay": false,
+    "standard": "hbm4",
+    "slots": 1,
+    "channels": 2,
+    "scale": 1,
+    "queue": 1,
+    "response_hold": 30,
+    "period_fs": 2000000,
+    "max_ticks": 200000000000,
+    "response_stall_cycles": 10
+  },
+  "runtime": "standalone-axi"
+}
