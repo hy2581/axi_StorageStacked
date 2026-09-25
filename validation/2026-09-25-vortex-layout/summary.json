@@ -1,0 +1,83 @@
+{
+  "passed": true,
+  "native_tests_passed": 19,
+  "api_check": {
+    "passed": true,
+    "masked_read": [
+      1,
+      0,
+      3,
+      0,
+      5,
+      0,
+      7,
+      0
+    ],
+    "queue_retry": true,
+    "large_window_bytes": 8589934592,
+    "high_address_no_alias": true,
+    "sparse_zero_initialized": true
+  },
+  "cases": {
+    "smoke": {
+      "passed": true,
+      "transactions": 6,
+      "end_tick_fs": 676000000
+    },
+    "default": {
+      "passed": true,
+      "transactions": 6,
+      "end_tick_fs": 822000000
+    },
+    "slow": {
+      "passed": true,
+      "transactions": 6,
+      "end_tick_fs": 766000000
+    },
+    "backpressure": {
+      "passed": true,
+      "transactions": 6,
+      "end_tick_fs": 892000000
+    },
+    "replay": {
+      "passed": true,
+      "transactions": 192,
+      "end_tick_fs": 15674000000
+    },
+    "decode_error": {
+      "passed": true,
+      "transactions": 8,
+      "end_tick_fs": 916000000
+    },
+    "read_only": {
+      "passed": true,
+      "transactions": 3,
+      "end_tick_fs": 504000000
+    },
+    "write_only": {
+      "passed": true,
+      "transactions": 3,
+      "end_tick_fs": 476000000
+    }
+  },
+  "rejected_invalid_inputs": [
+    "zero_id",
+    "wide_size",
+    "unaligned",
+    "cross_4k",
+    "wrong_strobe",
+    "bad_data",
+    "corrupted_read_response"
+  ],
+  "memory_feedback": {
+    "passed": true,
+    "first_write_latency_fs": [
+      84000000,
+      144000000
+    ],
+    "memory_period_fs": [
+      250000,
+      1000000
+    ]
+  }
+}

@@ -12,8 +12,7 @@ coralnpu_StorageStacked：CoralNPU RTL → AXI256 ──────┘         
 ```
 
 本项目不依赖两个驱动，也没有处理器私有代码。两个驱动引用本项目的公开端口和源码；
-不复制本项目，不使用 Git submodule。Vortex 通过 `STORAGE_STACK_ROOT` 选择依赖位置；
-CoralNPU 在其仓库根目录执行 `./build.sh --storage ../axi_StorageStacked` 保存相对路径。
+不复制本项目，不使用 Git submodule。两个驱动均在各自仓库根目录执行 `./build.sh --storage ../axi_StorageStacked` 保存相对路径。
 每个驱动有独立构建目录，两个仿真进程分别拥有自己的内存状态。
 
 ## 单独构建与输入输出
@@ -92,7 +91,10 @@ driver.axi.bind(wires);
 独立 SystemC 应用通过 `add_subdirectory` 和 `StorageStacked::axi` 构建/链接，
 可设置 `STORAGE_BUILD_CLI=OFF`。CoralNPU 驱动提供完整用例。
 gem5 通过 `EXTRAS=<本项目>/storage_axi`，把相同的公共源码编译到 gem5 自带 SystemC 中；
-Vortex 驱动保留 gem5/TLM 类型转换，公共存储实现不引用 gem5 头文件或符号。
+Vortex 驱动在 `integration/` 保留 gem5/TLM 类型转换，公共存储实现不引用 gem5 头文件或符号。
+两个驱动均提供 `user/run.sh smoke` 和 `user/run.sh llm`，配置和结果分别位于各项目目录内。
+gem5 集成可通过内部 `STORAGE_LINK_CONFIG` 指向 UCIe 参数 JSON；SCons 只为相关源文件设置
+编译定义，未设置时继续采用公共默认值。日常用户在驱动的项目 JSON 中修改 UCIe 参数即可。
 不要把两种 SystemC 内核装入同一个进程。
 
 ## 验收与边界

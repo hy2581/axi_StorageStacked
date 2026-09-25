@@ -74,3 +74,12 @@ SMOKE 的 `summary.json.passed`、`summary.json.smoke_passed` 和 `smoke_summary
 证据见 [verification.json](validation/2026-09-25-smoke-tutorial/verification.json)，
 完整原始记录在 `results/tutorial-smoke-from-zero-*`。负例目录中的 passed=false 是预期结果，
 核验摘要单独记录它们确实被拒绝。
+
+## Vortex 用户目录重构的公共接口复验（2026-09-25）
+
+为 gem5 集成添加可选 UCIe 编译参数读取，并在 SCons 中提供公共 AXI 监测器实现。
+默认参数不变；Vortex 的新平台已使用同一公共源码完成 gem5 编译。
+
+实际执行 `./run.sh test --output results/vortex-refactor-20260925`：8 个场景、19 项原生内存测试、
+在线 C ABI、7 项非法输入及损坏返回拒绝检查通过，慢内存时延反馈通过。
+摘要见 [本次复验](validation/2026-09-25-vortex-layout/summary.json)。

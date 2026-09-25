@@ -37,3 +37,11 @@ AW/AR 的 burst 必须为 1（INCR），size ≤ 5，地址按每拍大小对齐
 本项目提供源码级集成接口，不承诺跨 SystemC 版本的二进制 ABI。
 gem5 与独立 SystemC 必须分别编译 `storage_axi/*.cc`；它们可以链接各自的
 `libstoragestacked_memsim.so`，该库自身不包含 SystemC。
+
+## gem5 的编译配置
+
+`storage_axi/SConscript` 注册公共存储与 `AxiMonitor` 实现。可选环境变量
+`STORAGE_LINK_CONFIG` 指向一个包含 `lanes`、`rate_gtps`、`bits_per_symbol`、`tat_ns`
+的 JSON 文件，`link_options.py` 验证后为相关源文件设置 UCIe 编译定义。
+未设置时使用 `link_config.h` 的默认值。该设置只选择当前驱动构建的参数，不修改公共头文件；
+多个驱动可用独立构建目录选择不同链路参数。
