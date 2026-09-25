@@ -40,9 +40,9 @@ burst 槽耗尽后停止接收新请求，背压沿 AouTarget/UCIe/AXI 返回上
 独立 C ABI 验证：
 
 ```bash
-source scripts/activate.sh
-python mem_sim/integration/check_online.py \
-  "$MEMSIM_BUILD/libstoragestacked_memsim.so" results/api-check
+./run.sh build
+python3 mem_sim/integration/check_online.py \
+  build/mem_sim/libstoragestacked_memsim.so results/api-check
 ```
 
 它验证掩码读写、原生完成、满队列无副作用重试，以及重复 ID / 跨粒度请求拒绝。

@@ -1,6 +1,6 @@
-> 本目录现为 StorageStacked 主仓库普通源码，AoU与观察接口直接在这里维护。
+> 本目录现为 axi_StorageStacked 公共存储项目普通源码，AoU与观察接口直接在这里维护。
 > 公共帧格式由 `../protocol/include` 提供，不再由其他内部模块打补丁。
-> 整机运行见[统一环境](../env/README.md)；下文保留独立链路仿真的说明。
+> 整机运行见[独立存储入口](../README.md)；下文保留独立链路仿真的说明。
 
 # UCIe 双向高速互联仿真模型（SystemC）
 

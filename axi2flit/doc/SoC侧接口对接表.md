@@ -2,7 +2,7 @@
 
 本文供主机模型、AXI 激励和 trace 回放器开发者使用，描述当前可以连接的接口。实现定义见 [axi2flit.h](../systemc/include/axi2flit.h)、[axi_if.h](../systemc/include/axi_if.h)，已有接线与监视器见 [tb_full_link.cpp](../systemc/tb/tb_full_link.cpp)。
 
-**当前 SoC 边界是 `Axi2Flit` 的 AXI 从机端口。** 本项目由 `simulation/axi_master.cc` 将 CoralNPU RTL 原生异步请求适配为 AXI256 五通道；实际实现、时间调度与验收见[全链路联合仿真接入指南](全链路联合仿真接入指南.md)。
+本表描述内部 `Axi2Flit` 结构体端口，供组件开发使用。独立项目对外提供固定 256 bit 的 `storage_axi::AouBackend` 信号端口，有效 ID 为 1～1023；其契约见 [INTERFACE.md](../../INTERFACE.md)。外部处理器保留各自的 AXI master，使用同一份公共存储实现。
 
 ## 1. 模块边界与端口方向
 

@@ -1,6 +1,6 @@
 # 统一系统中的链路接入
 
-AXI2Flit、UCIe、CoralNPU 原生前端和 mem_sim 均作为本工程普通目录维护。
+AXI2Flit、UCIe 和 mem_sim 作为本公共存储工程的普通目录维护。处理器前端位于各自的独立驱动仓库。
 UCIe的AoU支持和观察接口已直接纳入ucie-model源码，不需要额外安装补丁。
 
 | 文件 | 职责 |
@@ -12,8 +12,8 @@ UCIe的AoU支持和观察接口已直接纳入ucie-model源码，不需要额外
 | ../include/simple_mem_if.h | 存储请求与响应类型 |
 
 完整在线入口是系统根目录 `./run.sh run`，验收入口是 `./run.sh test`。
-CoralNPU RTL 经原生异步接口驱动 AXI256，再经本链路和 MemSimBackend 访问在线 mem_sim。
-主程序只链接本工程独立构建的一套 Accellera SystemC，时间分辨率为 1 fs。
+文件输入或外部处理器的 AXI master 经本链路和 MemSimBackend 访问在线 mem_sim。
+调用方只使用一套 SystemC，时间分辨率为 1 fs；对外接口见 [INTERFACE.md](../../../INTERFACE.md)。
 
 AXI2Flit自己的独立SystemC测试入口仍保留，需另备独立SystemC测试环境：
 
