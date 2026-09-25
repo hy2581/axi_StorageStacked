@@ -9,6 +9,7 @@ import subprocess
 import sys
 import tempfile
 from run import ROOT, normalize, run_case, verify_responses
+from smoke import run_smoke
 
 p = argparse.ArgumentParser(description=__doc__)
 p.add_argument('--output', type=Path)
@@ -27,7 +28,7 @@ try:
     invoke([sys.executable, ROOT/'mem_sim/integration/check_online.py',
             ROOT/'build/mem_sim/libstoragestacked_memsim.so', output/'api'], 'api.log')
     example = json.loads((ROOT/'examples/roundtrip.json').read_text())
-    cases = {}
+    cases = {'smoke': run_smoke(output/'smoke')}
     for name, cfg in [('default',{}), ('slow',{'scale':4}),
                       ('backpressure',{'slots':1,'queue':1,'response_hold':30,'response_stall_cycles':10})]:
         request = copy.deepcopy(example);request['config'].update(cfg)

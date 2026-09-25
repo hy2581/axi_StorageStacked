@@ -1,0 +1,82 @@
+{
+  "passed": true,
+  "case": "axi-storage-smoke",
+  "version": "1.0.0",
+  "transactions": 6,
+  "handshakes": {
+    "AW": 2,
+    "W": 3,
+    "B": 2,
+    "AR": 4,
+    "R": 7
+  },
+  "stalled_edges": {
+    "R": 28,
+    "W": 4,
+    "B": 8
+  },
+  "end_tick_fs": 676000000,
+  "masked_write": {
+    "address": 2415919132,
+    "beat_strobe": 5,
+    "bus_strobe": "0x50000000",
+    "returned_bytes": "aa1dcc1f"
+  },
+  "readbacks": [
+    {
+      "id": 1,
+      "address": 2415919104,
+      "data": [
+        "0000000000000000000000000000000000000000000000000000000000000000",
+        "0000000000000000000000000000000000000000000000000000000000000000"
+      ]
+    },
+    {
+      "id": 3,
+      "address": 2415919104,
+      "data": [
+        "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f",
+        "202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f"
+      ]
+    },
+    {
+      "id": 5,
+      "address": 2415919104,
+      "data": [
+        "000102030405060708090a0b0c0d0e0f101112131415161718191a1baa1dcc1f",
+        "202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f"
+      ]
+    },
+    {
+      "id": 6,
+      "address": 2415919132,
+      "data": [
+        "aa1dcc1f"
+      ]
+    }
+  ],
+  "memory": {
+    "bursts": 6,
+    "children": 10,
+    "read_commands": 7,
+    "write_commands": 3,
+    "period_fs": 250000,
+    "image_bytes": 64,
+    "command_errors": 0,
+    "dfi_errors": 0
+  },
+  "checks": [
+    "returned bytes",
+    "response IDs/status",
+    "AXI five channels",
+    "VCD/CSV agreement",
+    "AXI/Flit bytes",
+    "online memory/DRAM/DFI",
+    "initial zero bytes",
+    "explicit expected read data",
+    "two-beat bursts",
+    "narrow WDATA/WSTRB lanes 28..31",
+    "masked bytes preserved",
+    "B/R backpressure observed"
+  ]
+}

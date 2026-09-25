@@ -4,6 +4,11 @@
 #include <map>
 #include <vector>
 namespace storage_axi {
+// Optional master-side counters; storage-only users need not provide them.
+struct AxiMasterStats {
+    uint64_t accepted, completed, max_outstanding, capacity_denials;
+    bool drained;
+};
 class AxiMonitor : public sc_core::sc_module {
  public:
     sc_core::sc_in<bool> clk{"clk"}, resetn{"resetn"};
@@ -14,10 +19,17 @@ class AxiMonitor : public sc_core::sc_module {
         events << "tick,cycle,channel,id,address,len,size,data,strb,last,resp\n";
         SC_METHOD(sample); sensitive << clk.pos(); dont_initialize();
     }
-    void finish(uint64_t period) {
+    void finish(uint64_t period, const AxiMasterStats* master = nullptr) {
         events.flush();
         std::ofstream f(directory + "/protocol_summary.json");
-        f << "{\"axi_data_bits\":256,\"ticks_per_second\":1000000000000000,\"period_ticks\":"
+        f << '{';
+        if (master) {
+            f << "\"accepted\":" << master->accepted << ",\"completed\":" << master->completed
+              << ",\"max_outstanding\":" << master->max_outstanding
+              << ",\"capacity_denials\":" << master->capacity_denials
+              << ",\"drained\":" << (master->drained ? "true" : "false") << ',';
+        }
+        f << "\"axi_data_bits\":256,\"ticks_per_second\":1000000000000000,\"period_ticks\":"
           << period << ",\"channels\":{";
         bool first=true;
         for (auto n : {"AW", "W", "B", "AR", "R"}) {

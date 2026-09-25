@@ -1,0 +1,11 @@
+{
+  "passed": true,
+  "checks": {
+    "existing_output_rejected_and_original_files_unchanged": true,
+    "optimized_python_rejected_before_directory_creation": true,
+    "full_write_in_place_of_partial_write_rejected_after_real_generic_run": true,
+    "smoke_coverage_failure_marks_both_summaries_false": true
+  },
+  "expected_failure_directory": "results/smoke-20260925-negative-coverage",
+  "note": "The negative coverage case intentionally failed; the SMOKE input file was never modified."
+}

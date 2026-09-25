@@ -11,8 +11,9 @@ coralnpu_StorageStacked：CoralNPU RTL → AXI256 ──────┘         
                             ← B/R 数据与完成响应 ←─────────────┘
 ```
 
-本项目不依赖两个驱动，也没有处理器私有代码。两个驱动按 `STORAGE_STACK_ROOT`
-引用本项目的公开端口和源码；不复制本项目，不使用 Git submodule。
+本项目不依赖两个驱动，也没有处理器私有代码。两个驱动引用本项目的公开端口和源码；
+不复制本项目，不使用 Git submodule。Vortex 通过 `STORAGE_STACK_ROOT` 选择依赖位置；
+CoralNPU 在其仓库根目录执行 `./build.sh --storage ../axi_StorageStacked` 保存相对路径。
 每个驱动有独立构建目录，两个仿真进程分别拥有自己的内存状态。
 
 ## 单独构建与输入输出
@@ -25,12 +26,20 @@ git clone https://github.com/hy2581/axi_StorageStacked.git
 cd axi_StorageStacked
 ./run.sh setup
 ./run.sh build
+./run.sh smoke
 ./run.sh run --input examples/roundtrip.json --output results/roundtrip
 ./run.sh test --output results/acceptance
 ```
 
-`setup` 只检查工具和源码；`run` 执行实际 AXI 信号仿真并校验，`test` 执行完整验收。
-每次使用新的结果目录，成功以 `summary.json` 中 `passed: true` 为准。
+`setup` 只检查工具和源码；`smoke` 执行固定的六笔真实 AXI 读写；`run` 执行自定义事务并校验，
+`test` 执行完整验收。每次使用新的结果目录，成功以 `summary.json` 中 `passed: true` 为准；
+SMOKE 还要求 `smoke_passed: true` 和 `smoke_summary.json` 中 `passed: true`。
+
+详细文档：
+
+- [输入说明](docs/INPUTS.md)：五通道输入、JSON 字段、配置范围、字节排列和 SMOKE 输入。
+- [输出说明](docs/OUTPUTS.md)：AXI 响应、结果文件、SMOKE 实测结果及本次源码／运行状态改动。
+- [从零添加 SMOKE 测试](docs/03-从零添加SMOKE测试.md)：项目参数表、修改位置，以及添加测试、运行和验收的操作步骤。
 
 输入 JSON 由 `config` 和 `transactions` 构成。命令行入口把事务转换为真实
 SystemC 五通道握手，适合独立试验；处理器集成直接使用下面的信号端口。
@@ -88,7 +97,10 @@ Vortex 驱动保留 gem5/TLM 类型转换，公共存储实现不引用 gem5 头
 
 ## 验收与边界
 
-`./run.sh test` 检查原生内存测试、C ABI、完整字节回读、多拍、窄拍、部分写入、
+`./run.sh smoke [--output 新目录]` 验证初始零值、两拍 256 位写回读、窄拍掩码写和 B/R 反压，
+并核对 VCD、Flit、在线内存子请求、DRAM/DFI 和最终镜像。它不自动构建，先执行 `./run.sh build`。
+
+`./run.sh test` 包含 SMOKE，并检查原生内存测试、C ABI、完整字节回读、多拍、窄拍、部分写入、
 ID 重用、4 KiB 页末访问、B/R 反压、内存延迟反馈、重放、DECERR，
 并拒绝非法输入和被篡改的读返回。
 

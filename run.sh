@@ -11,6 +11,6 @@ case "$command" in
     build)
         cmake -S "$root" -B "$root/build" -G 'Unix Makefiles' -DCMAKE_BUILD_TYPE=Release "$@"
         cmake --build "$root/build" -j "${BUILD_JOBS:-12}" ;;
-    run|test) exec python3 "$root/scripts/$command.py" "$@" ;;
-    *) echo 'Usage: ./run.sh {setup|build|run|test} [arguments]' >&2; exit 2 ;;
+    run|test|smoke) exec python3 "$root/scripts/$command.py" "$@" ;;
+    *) echo 'Usage: ./run.sh {setup|build|run|test|smoke} [arguments]' >&2; exit 2 ;;
 esac

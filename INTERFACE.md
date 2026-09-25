@@ -26,6 +26,8 @@ AW/AR 的 burst 必须为 1（INCR），size ≤ 5，地址按每拍大小对齐
 它不包含设备时钟、ELF、TLM payload、CPU 或 gem5 SimObject。
 `trace()` 注册 UCIe/AXI2Flit 内部波形，`Signals::trace()` 注册外部 AXI 信号。
 `AxiMonitor` 可记录五通道握手与反压稳定性；两个驱动还保留各自的来源事务检查。
+`finish(period, &stats)` 可选接收 `AxiMasterStats`，把主端接收／完成数、最大在途数、
+容量拒绝数和排空状态写入协议摘要；原有 `finish(period)` 调用方式仍然有效。
 调用方必须等所有 B/R 完成后再执行 `finish(directory)`，否则不得判定运行完成。
 
 整个请求必须在 `[base, base+size)` 内，否则返回 DECERR（3）。

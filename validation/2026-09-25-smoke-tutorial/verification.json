@@ -1,0 +1,147 @@
+{
+  "passed": true,
+  "stage": "complete",
+  "date": "2026-09-25",
+  "version": "1.0.0",
+  "source_commit_before_working_tree_changes": "cf865a64975d0541866320d0b0dd37cf2b1296f2",
+  "scope": "New development tutorial; existing SMOKE implementation reused. Build, baseline, three positive entrypoints, and tutorial negative examples executed. Full eight-case regression not rerun.",
+  "code_blocks": {
+    "AXI_SMOKE_READBACK": {
+      "executed": true,
+      "exit_code": 0,
+      "log": "axi_smoke_readback.log"
+    },
+    "AXI_SMOKE_BAD_EXPECTED": {
+      "executed": true,
+      "exit_code": 0,
+      "log": "axi_smoke_bad_expected.log"
+    },
+    "AXI_SMOKE_BAD_MASK": {
+      "executed": true,
+      "exit_code": 0,
+      "log": "axi_smoke_bad_mask.log"
+    }
+  },
+  "runs": {
+    "baseline": {
+      "raw_results": "results/tutorial-smoke-from-zero-baseline",
+      "simulation_acceptance_passed": true,
+      "expected_outcome_verified": true,
+      "summary": "baseline-summary.json"
+    },
+    "generic": {
+      "raw_results": "results/tutorial-smoke-from-zero-generic",
+      "simulation_acceptance_passed": true,
+      "expected_outcome_verified": true,
+      "summary": "generic-summary.json"
+    },
+    "python": {
+      "raw_results": "results/tutorial-smoke-from-zero-python",
+      "simulation_acceptance_passed": true,
+      "expected_outcome_verified": true,
+      "summary": "python-summary.json"
+    },
+    "shortcut": {
+      "raw_results": "results/tutorial-smoke-from-zero-shortcut",
+      "simulation_acceptance_passed": true,
+      "expected_outcome_verified": true,
+      "summary": "shortcut-summary.json"
+    },
+    "bad-expected": {
+      "raw_results": "results/tutorial-smoke-from-zero-bad-expected",
+      "simulation_acceptance_passed": false,
+      "expected_outcome_verified": true,
+      "summary": "bad-expected-summary.json"
+    },
+    "bad-mask": {
+      "raw_results": "results/tutorial-smoke-from-zero-bad-mask",
+      "simulation_acceptance_passed": false,
+      "expected_outcome_verified": true,
+      "summary": "bad-mask-summary.json"
+    }
+  },
+  "build_and_baseline_commands": [
+    "./run.sh setup",
+    "./run.sh build",
+    "./run.sh run --input examples/roundtrip.json --output results/tutorial-smoke-from-zero-baseline"
+  ],
+  "positive_commands": [
+    "./run.sh run --input examples/smoke.json --output results/tutorial-smoke-from-zero-generic",
+    "python3 scripts/smoke.py --output results/tutorial-smoke-from-zero-python",
+    "./run.sh smoke --output results/tutorial-smoke-from-zero-shortcut"
+  ],
+  "documentation_checks": {
+    "full_json_and_python_examples_match_source": true,
+    "cpp_lane_mapping_matches_source": true,
+    "python_source_example_compiles": true,
+    "run_sh_and_test_integration_matches": true,
+    "documents_checked": [
+      "README.md",
+      "ACCEPTANCE.md",
+      "docs/03-\u4ece\u96f6\u6dfb\u52a0SMOKE\u6d4b\u8bd5.md",
+      "docs/INPUTS.md",
+      "docs/OUTPUTS.md"
+    ],
+    "local_links_and_anchors_checked": 38,
+    "code_fences_balanced": true,
+    "response_example_and_stall_counts_match_new_run": true
+  },
+  "artifacts": [
+    {
+      "file": "axi_smoke_bad_expected.log",
+      "bytes": 71
+    },
+    {
+      "file": "axi_smoke_bad_mask.log",
+      "bytes": 63
+    },
+    {
+      "file": "axi_smoke_readback.log",
+      "bytes": 139
+    },
+    {
+      "file": "bad-expected-summary.json",
+      "bytes": 87
+    },
+    {
+      "file": "bad-mask-summary.json",
+      "bytes": 99
+    },
+    {
+      "file": "baseline-summary.json",
+      "bytes": 1210
+    },
+    {
+      "file": "generic-summary.json",
+      "bytes": 1211
+    },
+    {
+      "file": "input.json",
+      "bytes": 2123
+    },
+    {
+      "file": "memsim_check.json",
+      "bytes": 306
+    },
+    {
+      "file": "protocol_summary.json",
+      "bytes": 287
+    },
+    {
+      "file": "python-summary.json",
+      "bytes": 1274
+    },
+    {
+      "file": "responses.json",
+      "bytes": 1139
+    },
+    {
+      "file": "shortcut-summary.json",
+      "bytes": 1276
+    },
+    {
+      "file": "smoke_summary.json",
+      "bytes": 1778
+    }
+  ]
+}

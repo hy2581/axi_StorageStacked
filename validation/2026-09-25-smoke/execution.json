@@ -1,0 +1,75 @@
+{
+  "date": "2026-09-25",
+  "version": "1.0.0",
+  "source_commit_before_changes": "cf865a64975d0541866320d0b0dd37cf2b1296f2",
+  "change": "Added input/output docs and six-transaction SMOKE; changes are in the working tree.",
+  "commands": [
+    "./run.sh build",
+    "./run.sh smoke --output results/smoke-20260925-docs",
+    "./run.sh test --output results/acceptance-20260925-smoke"
+  ],
+  "full_smoke_results": "results/smoke-20260925-docs",
+  "full_regression_results": "results/acceptance-20260925-smoke",
+  "artifacts": [
+    {
+      "file": "validation/2026-09-25-smoke/aou_check_summary.json",
+      "bytes": 404
+    },
+    {
+      "file": "validation/2026-09-25-smoke/axi_events.csv",
+      "bytes": 1324
+    },
+    {
+      "file": "validation/2026-09-25-smoke/input.json",
+      "bytes": 2123
+    },
+    {
+      "file": "validation/2026-09-25-smoke/link_check_summary.json",
+      "bytes": 278
+    },
+    {
+      "file": "validation/2026-09-25-smoke/memsim_bridge.csv",
+      "bytes": 3006
+    },
+    {
+      "file": "validation/2026-09-25-smoke/memsim_bridge_summary.json",
+      "bytes": 109
+    },
+    {
+      "file": "validation/2026-09-25-smoke/memsim_check.json",
+      "bytes": 306
+    },
+    {
+      "file": "validation/2026-09-25-smoke/memsim_config.json",
+      "bytes": 327
+    },
+    {
+      "file": "validation/2026-09-25-smoke/memsim_core.json",
+      "bytes": 141
+    },
+    {
+      "file": "validation/2026-09-25-smoke/negative_checks.json",
+      "bytes": 539
+    },
+    {
+      "file": "validation/2026-09-25-smoke/protocol_summary.json",
+      "bytes": 287
+    },
+    {
+      "file": "validation/2026-09-25-smoke/regression_summary.json",
+      "bytes": 1517
+    },
+    {
+      "file": "validation/2026-09-25-smoke/responses.json",
+      "bytes": 1139
+    },
+    {
+      "file": "validation/2026-09-25-smoke/smoke_summary.json",
+      "bytes": 1778
+    },
+    {
+      "file": "validation/2026-09-25-smoke/summary.json",
+      "bytes": 1262
+    }
+  ]
+}

@@ -1,0 +1,5 @@
+transactions: 6
+handshakes: {'AW': 2, 'W': 3, 'B': 2, 'AR': 4, 'R': 7}
+masked read: aa1dcc1f
+memory children: 10
+last completion ns: 676.0
