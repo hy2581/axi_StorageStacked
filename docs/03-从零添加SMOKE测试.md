@@ -1,5 +1,7 @@
 # 从零添加 SMOKE：操作步骤
 
+[文档目录](README.md) · 按需查参数，第一次使用先看目录中的入门或配置实验。
+
 前提：项目已有可用的 AXI 存储链路和通用 `run` 入口。
 当前项目已完成以下步骤，可以对照现有文件查看，无需重复添加。
 
@@ -13,12 +15,12 @@
 
 需要调整构建时，使用以下选项；默认配置可以直接运行 SMOKE：
 
-| 参数 | 默认值 | 修改方式／用途 |
-|---|---|---|
-| `BUILD_JOBS` | 12 | `BUILD_JOBS=4 ./run.sh build`：限制编译并行数 |
-| `CMAKE_BUILD_TYPE` | Release | `./run.sh build -DCMAKE_BUILD_TYPE=Debug`：调试构建 |
-| `STORAGE_BUILD_CLI` | ON | `./run.sh build -DSTORAGE_BUILD_CLI=ON`：构建独立运行器，SMOKE 必须开启 |
-| `STORAGE_MEMSIM_LIBRARY` | 空 | 留空时从本项目源码构建；填已有内存库的绝对路径时使用外部库，完整 test 使用默认本地构建 |
+| 参数                       | 默认值  | 修改方式／用途                                                                         |
+| -------------------------- | ------- | -------------------------------------------------------------------------------------- |
+| `BUILD_JOBS`             | 12      | `BUILD_JOBS=4 ./run.sh build`：限制编译并行数                                        |
+| `CMAKE_BUILD_TYPE`       | Release | `./run.sh build -DCMAKE_BUILD_TYPE=Debug`：调试构建                                  |
+| `STORAGE_BUILD_CLI`      | ON      | `./run.sh build -DSTORAGE_BUILD_CLI=ON`：构建独立运行器，SMOKE 必须开启              |
+| `STORAGE_MEMSIM_LIBRARY` | 空      | 留空时从本项目源码构建；填已有内存库的绝对路径时使用外部库，完整 test 使用默认本地构建 |
 
 ## 第 2 步：配置项目并添加测试输入
 
@@ -27,21 +29,21 @@
 
 ### 2.1 项目运行参数：填写在 config 中
 
-| 类别 | 参数 | 默认值 | 作用和范围 |
-|---|---|---|---|
-| 地址窗口 | `base` | `2415919104` | 起址，即 `0x90000000`；0～2^64−1 |
-| 地址窗口 | `size` | `805306368` | 窗口字节数，即 768 MiB；1～2^64−1 |
-| AXI 时钟 | `period_fs` | `2000000` | 周期，默认 2 ns；2～10^9 fs，必须为偶数 |
-| AXI 反压 | `response_stall_cycles` | `3` | 主设备观察到 B/R 有效后额外等待的 AXI 周期数；0～100000 |
-| 仿真限制 | `max_ticks` | `200000000000` | 全局仿真时间上限，默认 200 μs；1～10^15 fs |
-| 链路资源 | `planes` | `2` | AoU 资源平面数；1～4 |
-| 链路重放 | `replay` | `false` | 是否启用链路错误注入／重放检查；布尔值 |
-| 内存标准 | `standard` | `hbm4` | 可选 hbm3、hbm4、lpddr5、lpddr6 |
-| 内存通道 | `channels` | `2` | 内存通道数；1～64 |
-| 内存时序 | `scale` | `1` | 内存时间倍率；1～1024，不改变 AXI 时钟 |
-| 内存队列 | `queue` | `4` | 原生内存队列深度；1～1024 |
-| 在途容量 | `slots` | `8` | 内存桥同时持有的 burst 槽位数；1～1023 |
-| 返回延迟 | `response_hold` | `0` | 内存完成后额外等待的内存周期数；0～1000000 |
+| 类别     | 参数                      | 默认值           | 作用和范围                                              |
+| -------- | ------------------------- | ---------------- | ------------------------------------------------------- |
+| 地址窗口 | `base`                  | `2415919104`   | 起址，即`0x90000000`；0～2^64−1                      |
+| 地址窗口 | `size`                  | `805306368`    | 窗口字节数，即 768 MiB；1～2^64−1                      |
+| AXI 时钟 | `period_fs`             | `2000000`      | 周期，默认 2 ns；2～10^9 fs，必须为偶数                 |
+| AXI 反压 | `response_stall_cycles` | `3`            | 主设备观察到 B/R 有效后额外等待的 AXI 周期数；0～100000 |
+| 仿真限制 | `max_ticks`             | `200000000000` | 全局仿真时间上限，默认 200 μs；1～10^15 fs             |
+| 链路资源 | `planes`                | `2`            | AoU 资源平面数；1～4                                    |
+| 链路重放 | `replay`                | `false`        | 是否启用链路错误注入／重放检查；布尔值                  |
+| 内存标准 | `standard`              | `hbm4`         | 可选 hbm3、hbm4、lpddr5、lpddr6                         |
+| 内存通道 | `channels`              | `2`            | 内存通道数；1～64                                       |
+| 内存时序 | `scale`                 | `1`            | 内存时间倍率；1～1024，不改变 AXI 时钟                  |
+| 内存队列 | `queue`                 | `4`            | 原生内存队列深度；1～1024                               |
+| 在途容量 | `slots`                 | `8`            | 内存桥同时持有的 burst 槽位数；1～1023                  |
+| 返回延迟 | `response_hold`         | `0`            | 内存完成后额外等待的内存周期数；0～1000000              |
 
 要求 `base+size <= 2^64−1`，窗口大小还须不超过所选原生内存容量。
 这些范围是文件入口的检查范围，具体组合仍需运行验收；默认 SMOKE 使用 HBM4。
@@ -49,16 +51,16 @@ JSON 参数改变后下一次运行生效，不需要重新编译。
 
 ### 2.2 本次访问参数：填写在 transactions 中
 
-| 参数 | 填写内容 |
-|---|---|
-| `command` | 必填，read 或 write |
-| `address` | 必填，十进制字节地址；按每拍大小对齐，burst 不跨 4 KiB |
-| `id` | 事务 ID，1～1023，默认 1 |
-| `size` | 每拍字节数的 log2，0～5；默认 5，即 32 字节 |
-| `beats` | 拍数，1～256；读默认 1，写默认 data 数组长度 |
-| `data` | 写数据，一拍一个十六进制字节串 |
-| `strobe` | 写字节掩码，一拍一个整数；省略表示该拍所有字节有效 |
-| `expected` | 读回期望，一拍一个字节串；可选，仅用于检查 |
+| 参数                  | 填写内容                                                 |
+| --------------------- | -------------------------------------------------------- |
+| `command`           | 必填，read 或 write                                      |
+| `address`           | 必填，十进制字节地址；按每拍大小对齐，burst 不跨 4 KiB   |
+| `id`                | 事务 ID，1～1023，默认 1                                 |
+| `size`              | 每拍字节数的 log2，0～5；默认 5，即 32 字节              |
+| `beats`             | 拍数，1～256；读默认 1，写默认 data 数组长度             |
+| `data`              | 写数据，一拍一个十六进制字节串                           |
+| `strobe`            | 写字节掩码，一拍一个整数；省略表示该拍所有字节有效       |
+| `expected`          | 读回期望，一拍一个字节串；可选，仅用于检查               |
 | `expected_response` | 期望响应码，默认 0（OKAY）；窗口外访问可指定 3（DECERR） |
 
 按顺序安排六笔事务：
@@ -74,18 +76,18 @@ JSON 参数改变后下一次运行生效，不需要重新编译。
 
 ### 2.3 其他模块的参数到哪里改
 
-| 模块／参数 | 当前默认值或配置位置 | 使用方法 |
-|---|---|---|
-| AXI 总线宽度 | 数据 256 位、地址 64 位、ID 信号 16 位；`storage_axi/axi_signals.hh` | 编译期接口，修改需同步协议／适配代码并重建 |
-| 全局时间分辨率 | 1 fs；`examples/axi_storage.cc` | 接口要求，保持该值 |
-| UCIe lane 数 | `AOU_LINK_LANES=16` | 在下方 link_config.h 调整编译配置，重建后验收 |
-| UCIe 每 lane 符号率 | `AOU_LINK_RATE_GTPS=24.0` GT/s | 同上 |
-| UCIe 调制 | `AOU_LINK_BITS_PER_SYMBOL=1`，即 NRZ；2 为 PAM4 | 同上 |
-| 信用返回时间预算 | `AOU_LINK_TAT_NS=40.0` ns | 同上 |
-| 重放注入概率 | replay=false 时为 0，true 时为 0.02；`storage_axi/aou_backend.cc` | 当前 JSON 只有开关，改变概率需修改源码并重建 |
-| 原生内存组织／时序 | `config/memory/hbm.cfg`、`lpddr.cfg` 的 organization、dram.timing | 用于 mem_sim 独立实验，包含层数、bank、行列、数据率和时序 |
-| 原生控制器／PHY | 同一 cfg 的 controller、phy、refresh 等节 | 用于独立实验，包含调度、队列、地址映射、PHY 延迟和刷新 |
-| 存储后端／可靠性／功耗／热 | 同一 cfg 的 storage、reliability、power、thermal 等节 | 用于独立实验，具体字段和默认值查看模板 |
+| 模块／参数                 | 当前默认值或配置位置                                                   | 使用方法                                                  |
+| -------------------------- | ---------------------------------------------------------------------- | --------------------------------------------------------- |
+| AXI 总线宽度               | 数据 256 位、地址 64 位、ID 信号 16 位；`storage_axi/axi_signals.hh` | 编译期接口，修改需同步协议／适配代码并重建                |
+| 全局时间分辨率             | 1 fs；`examples/axi_storage.cc`                                      | 接口要求，保持该值                                        |
+| UCIe lane 数               | `AOU_LINK_LANES=16`                                                  | 在下方 link_config.h 调整编译配置，重建后验收             |
+| UCIe 每 lane 符号率        | `AOU_LINK_RATE_GTPS=24.0` GT/s                                       | 同上                                                      |
+| UCIe 调制                  | `AOU_LINK_BITS_PER_SYMBOL=1`，即 NRZ；2 为 PAM4                      | 同上                                                      |
+| 信用返回时间预算           | `AOU_LINK_TAT_NS=40.0` ns                                            | 同上                                                      |
+| 重放注入概率               | replay=false 时为 0，true 时为 0.02；`storage_axi/aou_backend.cc`    | 当前 JSON 只有开关，改变概率需修改源码并重建              |
+| 原生内存组织／时序         | `config/memory/hbm.cfg`、`lpddr.cfg` 的 organization、dram.timing  | 用于 mem_sim 独立实验，包含层数、bank、行列、数据率和时序 |
+| 原生控制器／PHY            | 同一 cfg 的 controller、phy、refresh 等节                              | 用于独立实验，包含调度、队列、地址映射、PHY 延迟和刷新    |
+| 存储后端／可靠性／功耗／热 | 同一 cfg 的 storage、reliability、power、thermal 等节                  | 用于独立实验，具体字段和默认值查看模板                    |
 
 链路编译配置见 [link_config.h](../axi2flit/systemc/include/link_config.h)；
 原生内存模板见 [hbm.cfg](../config/memory/hbm.cfg)、[lpddr.cfg](../config/memory/lpddr.cfg)，
@@ -173,3 +175,22 @@ cp examples/smoke.json examples/my_smoke.json
 上述命令默认创建新结果目录；指定 `--output` 时也必须使用不存在的目录。
 
 字段详情见 [输入说明](INPUTS.md) 和 [输出说明](OUTPUTS.md)。
+
+## 日常新增输入与开发专项检查的区别
+
+只是想试自己的地址、数据或内存参数时，复制 `examples/smoke.json` 为新文件，
+再执行 `./run.sh run --input 新文件` 即可。无需重新添加 `scripts/smoke.py` 或修改 `run.sh`；
+前面的第 4～6 步说明固定 SMOKE 功能如何接入，目前已经存在。
+
+| 你的目标 | 需要改哪些内容 |
+|---|---|
+| 多写几拍，读回来验证 | 新 JSON 的 `transactions` 与读回期望 |
+| 观察慢内存或更长等待 | 新 JSON 的 `config` |
+| 固定检查新的协议场景 | 输入向量、专项检查脚本、测试入口及结果说明 |
+| 接入自己的 AXI 主设备 | SystemC 信号连接和驱动 |
+
+专项检查应能拒绝“不完整但看起来成功”的输入。
+原 SMOKE 要求实际出现部分字节写；如果把掩码改成全写并相应修改 expected，
+通用读写仍可能正确，但已不再覆盖“未使能字节保持原值”，专项检查就应失败。
+
+先跑通最小输入的步骤见 [独立负载入门](01-环境配置与独立负载入门.md)。

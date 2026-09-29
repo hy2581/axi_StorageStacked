@@ -1,5 +1,7 @@
 # axi_StorageStacked
 
+阅读入口：[文档目录](docs/README.md) · [逐文件中文讲解](https://github.com/hy2581/StorageStacked-docs)。
+
 独立的 **AXI256 信号接收 → AXI2Flit → 双向 UCIe → 在线 mem_sim** 项目。
 接收 AW/W/AR 与 BREADY/RREADY，返回 AWREADY/WREADY/ARREADY、B 写响应和 R 读数据。
 读写数据、字节使能、响应状态和延迟均沿实际模型链路传递。
