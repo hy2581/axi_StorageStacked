@@ -1,6 +1,6 @@
 # 项目输入：AXI 信号、配置与 SMOKE 驱动
 
-[文档目录](README.md) · 按需查参数，第一次使用先看目录中的入门或配置实验。
+[返回文档目录](README.md)。
 
 本文对应 `VERSION=1.0.0` 的源码接口。输出字段、实际测试结果以及本次改动清单见
 [OUTPUTS.md](OUTPUTS.md)。简明端口契约见 [INTERFACE.md](../INTERFACE.md)。
